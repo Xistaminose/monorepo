@@ -1,0 +1,49 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go dependencies
+vendor/
+Gopkg.lock
+Gopkg.toml
+go.sum
+go.mod
+
+# Bazel build and output directories
+bazel-*
+bazel-bin/
+bazel-out/
+bazel-testlogs/
+bazel-genfiles/
+
+# Gazelle generated files
+WORKSPACE.bazel
+BUILD.bazel
+
+# User-specific and system files
+.DS_Store
+.idea/
+*.swp
+*.swo
+*.orig
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Coverage files
+*.cover
+coverage.out
+
+# Exclude the go module cache
+go/pkg/
