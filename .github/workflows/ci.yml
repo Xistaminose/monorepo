@@ -14,5 +14,7 @@ jobs:
       - uses: bazelbuild/setup-bazelisk@v2
       - name: Run Gazelle
         run: bazel run //:gazelle
-      - run: bazel build //...
-      - run: bazel test //...
+      - name: Build
+        run: bazel build //... --verbose_failures --sandbox_debug
+      - name: Test
+        run: bazel test //... --verbose_failures --sandbox_debug
