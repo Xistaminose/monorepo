@@ -2,38 +2,17 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
-
-            - name: Set up Bazel
-              uses: bazelbuild/setup-bazel@v3
-
-            - name: Cache Bazel output
-              uses: actions/cache@v2
-              with:
-                path: |
-                    ~/.cache/bazel
-                    bazel-out
-                    key: ${{ runner.os }}-bazel-${{ hashFiles('**/WORKSPACE', '**/BUILD.bazel', '**/BUILD') }}
-                    restore-keys: |
-                    ${{ runner.os }}-bazel-
-
-            - name: Run Gazelle
-              run: bazel run //:gazelle
-
-            - name: Build
-              run: bazel build //...
-
-            - name: Test
-              run: bazel test --build_tests_only //...
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bazelbuild/setup-bazelisk@v2
+      - run: bazel build //...
+      - run: bazel test //...
+      
+    
