@@ -7,39 +7,12 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y pkg-config zip g++ zlib1g-dev unzip python3
-
-    - name: Install Bazel
-      run: |
-        curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
-        sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
-        echo "deb [signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
-        sudo apt-get update && sudo apt-get install -y bazel
-        sudo apt-get upgrade -y bazel
-
-    - name: Cache Bazel output
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.cache/bazel
-          bazel-out
-        key: ${{ runner.os }}-bazel-${{ hashFiles('**/WORKSPACE', '**/BUILD.bazel', '**/BUILD') }}
-        restore-keys: |
-          ${{ runner.os }}-bazel-
-
-    - name: Run Gazelle
-      run: bazel run //:gazelle
-
-    - name: Build
-      run: bazel build //...
-
-    - name: Test
-      run: bazel test --build_tests_only //...
+      - uses: actions/checkout@v2
+      - uses: bazelbuild/setup-bazelisk@v2
+      - name: Run Gazelle
+        run: bazel run //:gazelle
+      - run: bazel build //...
+      - run: bazel test //...
