@@ -7,17 +7,12 @@ on:
     branches: [main]
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Run Gazelle
-        run: bazel run //:gazelle
-        
-      - uses: actions/checkout@v2
-      - uses: bazelbuild/setup-bazelisk@v2
-      # add gazelle
 
-      - run: bazel build //...
-      - run: bazel test //...
-      
-    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Bazel
+      uses: bazelbuild/setup-bazel@v3
