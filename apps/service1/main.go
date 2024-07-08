@@ -9,6 +9,7 @@ func main() {
 	// create a http server that return "Hello from service1"
 
 	fmt.Println("Hello from service1")
+	fmt.Println("Hello2 from common")
 
 	server := &http.Server{
 		Addr: ":8080",
