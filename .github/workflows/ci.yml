@@ -15,6 +15,6 @@ jobs:
       - name: Run Gazelle
         run: bazel run //:gazelle
       - name: Build
-        run: bazel build //... --verbose_failures --sandbox_debug
+        run: bazel build //...
       - name: Test
-        run: bazel test //... --verbose_failures --sandbox_debug
+        run: bazel test //...
