@@ -5,8 +5,6 @@
 vendor/
 Gopkg.lock
 Gopkg.toml
-go.sum
-go.mod
 
 # Bazel build and output directories
 bazel-*
