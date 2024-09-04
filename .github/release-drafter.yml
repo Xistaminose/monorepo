@@ -1,0 +1,13 @@
+name: "Release Notes"
+tag-template: "v$NEXT_PATCH_VERSION"
+categories:
+  - title: "🚀 Features"
+    label: "feature"
+  - title: "🐛 Bug Fixes"
+    label: "bugfix"
+  - title: "🛠 Maintenance"
+    label: "chore"
+change-template: "- {pull} {title}"
+template: |
+  ## What's Changed
+  {changes}
