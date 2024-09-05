@@ -15,7 +15,13 @@ jobs:
 
       - name: Release Drafter
         uses: release-drafter/release-drafter@v6.0.0
-    
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Automatically publish the release
+      - name: Publish Release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          gh release create $(git describe --tags $(git rev-list --tags --max-count=1)) --draft=false --title "$(git describe --tags $(git rev-list --tags --max-count=1))" --notes "Automatic release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
